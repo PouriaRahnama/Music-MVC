@@ -1,0 +1,62 @@
+﻿@model Music.Data.Slider
+
+@{
+    ViewBag.Title = "افزودن اسلایدر";
+}
+
+@section BreadCumb
+{
+    <li>مدیریت اسلایدرها</li>
+    <li>لیست اسلایدر ها</li>
+    <li>ایجاد اسلایدر</li>
+}
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget flat radius-bordered">
+        <div class="widget-header bg-blue">
+            <span class="widget-caption">فرم افزودن اسلایدر</span>
+        </div>
+        <div class="widget-body">
+            <div id="registration-form">
+                @using (Html.BeginForm("Create", "Slider", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input name="@nameof(Model.ImageName)" value="no-photo.png" type="hidden" />
+                    <div class="form-title">
+                        افزودن اسلایدر
+                    </div>
+
+
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.Title) } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.Description) } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            <input type="file" value="image..." name="sliderImage">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" value="true" name="@nameof(Model.IsActive)">
+                                <span class="text">@Html.DisplayNameFor(model => model.IsActive)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-blue">ثبت</button>
+                    <a href="/Admin/Slider/Index" class="btn btn-blue">بازگشت</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

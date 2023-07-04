@@ -1,0 +1,83 @@
+﻿@using Music.Web.Utilities.FileTools
+@model Music.Data.Song
+@using Music.Web.Utilities.ImageTools
+@{
+    ViewBag.Title = "ویرایش آهنگ";
+}
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget flat radius-bordered">
+        <div class="widget-header bg-blue">
+            <span class="widget-caption">فرم ویرایش آهنگ</span>
+        </div>
+        <div class="widget-body">
+            <div id="registration-form">
+                @using (Html.BeginForm("Edit", "Song", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(s => s.SingerId)
+                    @Html.HiddenFor(s => s.SongFileName)
+                    @Html.HiddenFor(s => s.IsDelete)
+                    @Html.HiddenFor(s => s.Id)
+                    @Html.HiddenFor(s => s.SongImageName)
+                    @Html.HiddenFor(s => s.CreateDate)
+                    <div class="form-title">
+                        ویرایش آهنگ
+                    </div>
+
+
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.SongName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.SongName) } })
+                            @Html.ValidationMessageFor(model => model.SongName, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.Description) } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+                    <div class="img-responsive">
+                        <img width="100" height="100" src="@(ImagePath.SongThumbPath+Model.SongImageName)" />
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label>تصویر آهنگ</label>
+                        <span class="input-icon icon-right">
+                            <input type="file" value="image..." name="songImage">
+                        </span>
+                    </div>
+                    <hr />
+                    <a class="btn btn-link" href="@(FilePath.SongPath+Model.SongFileName)">لینک فایل</a>
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            <input type="file" value="select file ..." name="songFile" accept=".rar,.zip">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" value="true" name="@nameof(Model.IsActive)" @(Model.IsActive ? "checked" : "")>
+                                <span class="text">@Html.DisplayNameFor(model => model.IsActive)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-blue">ویرایش</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+    <script src="/Utilities/ckeditor/ckeditor.js"></script>
+    <script src="/Utilities/ckeditor/adapters/jquery.js"></script>
+    <script>
+        $(function () {
+            $('#Description').ckeditor();
+        });
+    </script>
+}

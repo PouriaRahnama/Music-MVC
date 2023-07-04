@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+    @Html.Partial("_Css")
+</head>
+
+<body class="sticky-header left-side-collapsed">
+    <section>
+
+        <div class="main-content">
+            @Html.Partial("_HeaderSection")
+            <div class="clearfix"></div>
+
+            @RenderBody()
+
+            @RenderSection("FooterSlider", false)
+        </div>
+
+        <div class="clearfix"></div>
+        @Html.Partial("_Footer")
+    </section>
+    @Html.Partial("_Scripts")
+</body>
+</html>

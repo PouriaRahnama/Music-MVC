@@ -1,0 +1,121 @@
+﻿@model Music.Service.DTO_ViewModel_.User.AdminUsersDto
+@{
+    ViewBag.Title = "لیست کاربران";
+}
+
+@section BreadCumb
+{
+    <li>مدیریت کاربران</li>
+    <li>لیست کاربران</li>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-lg-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-header bg-blue">
+                    <span class="widget-caption">فیلتر کاربر</span>
+                </div>
+                <div class="widget-body">
+                    <div id="registration-form">
+                        @using (Html.BeginForm("Index", "User", FormMethod.Get, new { id = "filter-search" }))
+                        {
+                            <input type="hidden" value="@Model.PageId" name="@nameof(Model.PageId)" id="PageId" />
+                            <div class="form-group">
+                                <label>ایمیل کاربر</label>
+                                <input type="text" name="@nameof(Model.FilterEmail)" value="@Model.FilterEmail" class="form-control" placeholder="ایمیل کاربر" />
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">جستجو</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="well with-header  with-footer">
+            <div class="header bg-blue">
+                لیست کاربران
+            </div>
+            <table class="table table-hover">
+                <thead class="bordered-darkorange">
+                    <tr>
+                        <th>
+                            نام کاربری
+                        </th>
+                        <th>
+                            توضیحات
+                        </th>
+                        <th>
+                            وضعیت
+                        </th>
+                        <th>
+                            دستورات
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+
+                        <tr>
+                            <td>
+                                @user.UserName
+                            </td>
+                            <td>
+                                @user.Email
+                            </td>
+                            <td>
+                                <p>@(user.IsActive ? "فعال" : "غیرفعال")</p>
+                                @if (user.IsDelete)
+                                {
+                                    <p class="text-danger">حذف شده</p>
+                                }
+                            </td>
+                            <td>
+
+                                @if (user.IsDelete)
+                                {
+                                    <a class="btn btn-primary btn-circle btn-xs" onclick="ReturnUser(@user.Id)">
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger btn-circle btn-xs" onclick="DeleteUser(@user.Id)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-circle btn-xs" href="@Url.Action("Edit",new {id=user.Id})">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <ul class="pagination">
+                @*<li class="disabled"><a href="#">«</a></li>*@
+                @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                {
+                    <li class="@(i == Model.ActivePage?"active":"")">
+                        <a style="cursor: pointer" onclick="Paging(@i)">
+                            @i
+                            @if (i == Model.ActivePage)
+                            {
+                                <span class="sr-only">(current)</span>
+                            }
+                        </a>
+                    </li>
+                }
+                @*<li><a href="#">»</a></li>*@
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Areas/Admin/Content/CustomJs/User.js"></script>
+}

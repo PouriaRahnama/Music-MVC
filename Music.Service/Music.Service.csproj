@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6760918B-157D-472B-B4CF-7DED80E5C1C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Onion.Service</RootNamespace>
+    <AssemblyName>Onion.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Onion.Repository\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\Onion.Repository\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Entity.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\Paging\BasePaging.cs" />
+    <Compile Include="DTO\Paging\Pager.cs" />
+    <Compile Include="DTO\Song\AllSongsDTO.cs" />
+    <Compile Include="DTO\Song\SingleSongDTO.cs" />
+    <Compile Include="DTO\User\AdminEditUserDto.cs" />
+    <Compile Include="DTO\User\AdminUsersDto.cs" />
+    <Compile Include="Extensions\FilterExtensions.cs" />
+    <Compile Include="Extensions\PagingExtension.cs" />
+    <Compile Include="Services\Role\RoleService.cs" />
+    <Compile Include="Services\Singer\SingerService.cs" />
+    <Compile Include="Services\Slider\SliderService.cs" />
+    <Compile Include="Services\Song\SongService.cs" />
+    <Compile Include="Services\UserRole\UserRolesService.cs" />
+    <Compile Include="Services\User\UserService.cs" />
+    <Compile Include="Services\Role\IRoleService.cs" />
+    <Compile Include="Services\Singer\ISingerService.cs" />
+    <Compile Include="Services\Slider\ISliderService.cs" />
+    <Compile Include="Services\Song\ISongService.cs" />
+    <Compile Include="Services\UserRole\IUserRolesService.cs" />
+    <Compile Include="Services\User\IUserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Music.Data\Music.Data.csproj">
+      <Project>{c38eecec-6639-457e-ba7a-8d3dcc6f85fb}</Project>
+      <Name>Music.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Music.Repository\Music.Repository.csproj">
+      <Project>{488a0e79-72ba-44e9-9c06-1419cc4042d5}</Project>
+      <Name>Music.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,112 @@
+﻿@using Music.Web.Utilities.FileTools
+@using Music.Web.Utilities.ImageTools
+@using Music.Web.Utilities.Tools
+@using DNTPersianUtils.Core
+@model Music.Service.DTO_ViewModel_.SingleSongDTO
+
+@{
+    ViewBag.Title = Model.Song.SongName;
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-8 pull-right" style="direction: rtl">
+            <br>
+            <div class="post-media">
+                <a><img src="@(ImagePath.SongOriginalPath + Model.Song.SongImageName)" class="img-responsive" style="width: 100%" alt=""></a>
+                <div class="blog-text">
+                    <a>
+                        <h3 class="h-t">@Model.Song.SongName</h3>
+                    </a>
+                    <div class="entry-meta">
+                        <h6 class="blg"><i class="fa fa-clock-o"></i> @Model.Song.CreateDate.ToLongPersianDateString()</h6>
+                        <div class="icons">
+
+                            <a onclick="LikeSong(@Model.Song.Id)" style="cursor: pointer">
+                                <i class="fa fa-thumbs-o-up"></i>
+                                <span id="SongLikes">@Model.Song.SongLikes.Count</span>
+                            </a>
+                            <a>
+                                <i class="fa fa-eye"></i>
+                                <span>@Model.Song.SongVisit.Count</span>
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <p>
+                            @Html.Raw(Model.Song.Description)
+                        </p>
+                        <hr>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@(FilePath.SongPath + Model.Song.SongFileName)" class="btn btn-info btn-block">دانلود فایل</a>
+                        }
+                        else
+                        {
+                            <div class="alert alert-success">
+                                <p dir="rtl" style="line-height: 0.3em; font-size: 20px">
+                                    لطفا جهت دانلود آهنگ وارد سایت شوید!
+                                </p>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 pull-left">
+            <br>
+            <div class="thumbnail">
+                <img src="@(ImagePath.SingerOriginalPath + Model.Song.Singer.SingerImage)" alt="Fjords" style="width:100%">
+                <div class="caption">
+                    <h2 class="text-bold text-center">@Model.Song.Singer.SingerName</h2>
+                </div>
+                <article class="audio" style="text-align: center">
+                    <audio controls controlsList="nodownload">
+                        <source src="@(FilePath.SongServerPath + Model.Song.SongFileName)" type="audio/ogg">
+                        <source src="@(FilePath.SongServerPath + Model.Song.SongFileName)" type="audio/mpeg">
+                        <source src="~/Content/Files/Song/@Model.Song.SongFileName" type="audio/mp3" />
+                    </audio>
+                </article>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 pull-left">
+            <div class="widget-side second">
+                <ul>
+                    @foreach (var song in Model.Songs)
+                    {
+                        <li>
+                            <div class="song-img">
+                                <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})"><img src="@(ImagePath.SongThumbPath + song.SongImageName)" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="song-text">
+                                <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">@song.SongName</a> <span class="post-date">@song.Singer.SingerName</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- //widget -->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script>
+    function LikeSong(songId) {
+        var likesCount = parseInt($("#SongLikes").html());
+        $.get("/Song/LikeSong?songId=" + songId).done(function (res) {
+            if (res.status === "Like") {
+                $("#SongLikes").html(likesCount + 1);
+            } else if (res.status === "DisLike") {
+                $("#SongLikes").html(likesCount - 1);
+            } else if (res.status === "NotFound") {
+                alert(res.status);
+            }
+        });
+    };
+
+</script>

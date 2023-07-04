@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @Html.Partial("_HeaderReference")
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loader"></div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-container">
+                <div class="navbar-header pull-right">
+                    <a href="/" class="navbar-brand">
+                        <p style="margin-top: 8px">
+                            Music
+                        </p>
+                    </a>
+                </div>
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="collapse-icon fa fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container container-fluid">
+        <div class="page-container">
+            @Html.Partial("_RightSideBar")
+            <div class="page-content">
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="#">خانه</a>
+                        </li>
+                        @RenderSection("BreadCumb", false)
+                    </ul>
+                </div>
+                <div class="page-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_FooterRefrences")
+    @RenderSection("Scripts", false)
+</body>
+</html>
+

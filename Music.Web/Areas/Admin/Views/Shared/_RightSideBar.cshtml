@@ -1,0 +1,75 @@
+﻿<div class="page-sidebar" id="sidebar">
+    <ul class="nav sidebar-menu">
+        <li>
+            <a href="/">
+                <i class="menu-icon glyphicon glyphicon-log-out"></i>
+                <span class="menu-text"> بازگشت به سایت </span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin">
+                <i class="menu-icon glyphicon glyphicon-home"></i>
+                <span class="menu-text"> داشبورد </span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-picture-o"></i>
+                <span class="menu-text">
+                    مدیریت اسلایدر
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu" style="display: none;">
+                <li>
+                    <a href="@Url.Action("Index","Slider")">
+                        <span class="menu-text">اسلایدر</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-users"></i>
+                <span class="menu-text">
+                    مدیریت کاربران
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu" style="display: none;">
+                <li>
+                    <a href="@Url.Action("Index","User")">
+                        <span class="menu-text">کاربران</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","UserRoles")">
+                        <span class="menu-text">مدیریت نقش کاربران</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-music"></i>
+                <span class="menu-text">
+                    مدیریت خواننده ها
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu" style="display: none;">
+                <li>
+                    <a href="@Url.Action("Index", "Singer")">
+                        <span class="menu-text">لیست</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Create", "Singer")">
+                        <span class="menu-text">افزودن</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+

@@ -1,0 +1,64 @@
+﻿@using Music.Web.Utilities.ImageTools
+@model IEnumerable<Music.Data.Singer>
+
+@{
+    ViewBag.Title = "لیست خواننده ها";
+}
+
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var singer in Model)
+        {
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="databox databox-xlg databox-halved radius-bordered databox-shadowed databox-vertical">
+                    <div class="databox-top bg-white padding-10">
+                        <div class="col-lg-4 col-sm-4 col-xs-4">
+                            <img src="@(ImagePath.SingerThumbPath + singer.SingerImage)" style="width:75px; height:75px;" class="image-circular bordered-3 bordered-palegreen">
+                        </div>
+                        <div class="col-lg-8 col-sm-8 col-xs-8 text-align-left padding-10">
+                            <span class="databox-header carbon no-margin">@singer.SingerName</span>
+                            <span class="databox-text lightcarbon no-margin"> @(singer.IsActive ? "فعال" : "غیر فعال") </span>
+                        </div>
+                    </div>
+                    <div class="databox-bottom bg-white no-padding">
+                        <div class="databox-row row-12">
+                            <div class="databox-row row-6 no-padding">
+                                <div class="databox-cell cell-4 no-padding text-align-center bordered-right bordered-platinum">
+                                    <span class="databox-text sonic-silver  no-margin">   تعداد آهنگ ها </span>
+                                    <span class="databox-text lightcarbon no-margin">  @singer.Songs.Count  </span>
+                                </div>
+                            </div>
+                            <div class="databox-row row-6 padding-10">
+
+                                @if (!singer.IsDelete)
+                                {
+                                    <a onclick="DeleteSinger(@singer.Id)" class="btn btn-danger btn pull-right margin-left-10">حذف</a>
+                                    <a href="@Url.Action("Edit",new {id = singer.Id})" class="btn btn-warning btn pull-right margin-left-10">ویرایش</a>
+                                    <a href="@Url.Action("Index","Song",new {id = singer.Id})" class="btn btn-info btn pull-right margin-left-10">آهنگ ها</a>
+                                }
+                                else
+                                {
+                                    <a onclick="ReturnSinger(@singer.Id)" class="btn btn-info btn pull-right margin-left-10">بازگردانی</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            خواننده ای یافت نشد
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script src="~/Areas/Admin/Content/CustomJs/Singer.js"></script>
+}
+
+

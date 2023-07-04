@@ -1,0 +1,71 @@
+﻿@using Music.Web.Utilities.ImageTools
+
+@model Music.Service.DTO_ViewModel_.User.AdminEditUser
+
+@{
+    ViewBag.Title = "ویرایش کاربر";
+}
+
+
+@section BreadCumb
+{
+    <li>
+        <a href="@Url.Action("Index")">مدیریت کاربران</a>
+    </li>
+    <li>ویرایش کاربر</li>
+}
+
+
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget flat radius-bordered">
+        <div class="widget-header bg-yellow">
+            <span class="widget-caption">فرم ویرایش کاربر</span>
+        </div>
+        <div class="widget-body">
+            <div id="registration-form">
+                @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(s => s.UserId)
+                    @Html.HiddenFor(s => s.CurrentEmail)
+                    @Html.HiddenFor(s => s.CurrentUserName)
+                    <div class="form-title">
+                        ویرایش کاربر
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            @Html.DisplayNameFor(s => s.UserName)
+                        </label>
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.UserName) } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            @Html.DisplayNameFor(s => s.Email)
+                        </label>
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.Email) } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" value="true" name="@nameof(Model.IsActive)" @(Model.IsActive ? "checked" : "")>
+                                <span class="text">@Html.DisplayNameFor(model => model.IsActive)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-blue">ویرایش</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+﻿@using Music.Web.Utilities.ImageTools
+@using Music.Web.Utilities.Tools
+@model IEnumerable<Music.Data.Song>
+
+<div class="albums" >
+    <div class="tittle-head">
+        <h3 class="tittle"><span class="new">جدیدترین آهنگ ها</span></h3>
+        <div class="clearfix"></div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var song in Model)
+        {
+            <div class="col-md-3 artist-grid">
+                <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">
+                    <img src="@(ImagePath.SongOriginalPath + song.SongImageName)" title="allbum-name" width="257" height="257">
+                </a>
+                <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})"><i class="glyphicon glyphicon-play-circle"></i></a>
+                <a class="art" href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">@song.SongName</a>
+            </div>
+        }
+    }
+
+    <div class="clearfix"></div>
+</div>
+

@@ -1,0 +1,128 @@
+﻿@using Music.Web.Utilities.FileTools
+@model IEnumerable<Music.Data.Song>
+@using Music.Web.Utilities.ImageTools
+@{
+    ViewBag.Title = "لیست آهنگ ها";
+}
+@section BreadCumb
+{
+    <li>
+        <a href="@Url.Action("Index","Singer",new{area = "Admin"})">لیست خوانندگان</a>
+    </li>
+    <li>
+        لیست آهنگ ها
+    </li>
+}
+<div class="row">
+    <div class="col-md-3">
+        <a class="btn btn-success btn-block" href="@Url.Action("Create","Song",new {id = ViewBag.SingerId})">افزودن آهنگ</a>
+    </div>
+</div>
+<br />
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="well with-header  with-footer">
+                <div class="header bg-blue">
+                    لیست آهنگ ها
+                </div>
+                <table class="table table-hover">
+                    <thead class="bordered-darkorange">
+                        <tr>
+                            <th>
+                                تصویر
+                            </th>
+                            <th>
+                                نام آهنگ
+                            </th>
+                            <th>
+                                آهنگ
+                            </th>
+                            <th>
+                                وضعیت
+                            </th>
+                            <th>
+                                دستورات
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var song in Model)
+                        {
+
+                        <tr>
+                            <td>
+                                <img src="@(ImagePath.SongThumbPath + song.SongImageName)" height="75" width="75" />
+                            </td>
+                            <td>
+                                @song.SongName
+                            </td>
+                            <td>
+                                <a class="btn btn-link" href="@(FilePath.SongPath+song.SongFileName)">لینک فایل</a>
+                            </td>
+                            <td>
+                                <p>@(song.IsActive ? "فعال" : "غیرفعال")</p>
+                                @if (song.IsDelete)
+                                {
+                                    <p class="text-danger">حذف شده</p>
+                                }
+                            </td>
+                            <td>
+
+                                @if (song.IsDelete)
+                                {
+                                    <a class="btn btn-primary btn-circle btn-xs" onclick="ReturnSong(@song.Id)">
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </a>
+
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger btn-circle btn-xs" onclick="DeleteSong(@song.Id)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-circle btn-xs" href="@Url.Action("Edit",new {id=song.Id})">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="alert alert-warning">
+            آهنگی یافت نشد
+        </div>
+    </div>
+}
+
+<script>
+    function DeleteSong(songId) {
+        $.get("/Admin/Song/Delete/" + songId).done(function (res) {
+            if (res.status === "Done") {
+                location.reload();
+            } else {
+                alert(res.status);
+            }
+        });
+
+    };
+
+    function ReturnSong(songId) {
+        $.get("/Admin/Song/Return/" + songId).done(function (res) {
+            if (res.status === "Done") {
+                location.reload();
+            } else {
+                alert(res.status);
+            }
+        });
+    };
+</script>

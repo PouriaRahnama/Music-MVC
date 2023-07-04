@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Music.Data.Slider>
+
+@{
+    ViewBag.Title = "لیست اسلایدرها";
+
+}
+@using Music.Web.Utilities.ImageTools
+@section BreadCumb
+{
+    <li>مدیریت اسلایدرها</li>
+    <li>لیست اسلایدر ها</li>
+
+}
+
+@using Music.Web.Utilities.ImageTools;
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well with-header  with-footer">
+            <div class="header bg-blue">
+                لیست اسلایدرها
+            </div>
+            <a class="btn btn-primary" href="@Url.Action("Create")">
+                Create
+            </a>
+            <table class="table table-hover">
+                <thead class="bordered-darkorange">
+                    <tr>
+                        <th>
+                            تصویر
+                        </th>
+                        <th>
+                            عنوان
+                        </th>
+                        <th>
+                            توضیحات
+                        </th>
+                        <th>
+                            وضعیت
+                        </th>
+                        <th>
+                            دستورات
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var slider in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                <img width="75" height="75" src="@(ImagePath.SliderThumbPath+slider.ImageName)" />
+                            </td>
+                            <td>
+                                @slider.Title
+                            </td>
+                            <td>
+                                @slider.Description
+                            </td>
+                            <td>
+                                <p>@(slider.IsActive ? "فعال" : "غیرفعال")</p>
+                                @if (slider.IsDelete)
+                                {
+                                    <p class="text-danger">حذف شده</p>
+                                }
+                            </td>
+                            <td>
+
+
+                                @if (slider.IsDelete)
+                                {
+                                    <a class="btn btn-primary btn-circle btn-xs" onclick="ReturnSlider(@slider.Id)">
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger btn-circle btn-xs" onclick="DeleteSlider(@slider.Id)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-circle btn-xs" href="@Url.Action("Edit",new {id=slider.Id})">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/Areas/Admin/Content/CustomJs/Slider.js"></script>
+}

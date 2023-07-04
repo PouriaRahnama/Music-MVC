@@ -1,0 +1,55 @@
+﻿@using Music.Web.Utilities.ImageTools
+@using Music.Web.Utilities.Tools
+@model Music.Service.DTO_ViewModel_.AllSongsDTO
+
+@{
+    ViewBag.Title = "لیست آهنگ ها";
+}
+
+<div id="page-wrapper">
+    <div class="inner-content">
+        <div class="music-browse">
+            <!--albums-->
+            <!--//discover-view-->
+            <div class="albums fourth">
+                <div class="clearfix"></div>
+
+
+                @if (Model.Songs != null && Model.Songs.Any())
+                {
+                    foreach (var song in Model.Songs)
+                    {
+                        <div class="col-md-3 artist-grid">
+                            <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id, songName = song.SongName.FixedForUrl()})"><img src="@(ImagePath.SongOriginalPath + song.SongImageName)" title="allbum-name" width="257" height="257"></a>
+                            <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})"><i class="glyphicon glyphicon-play-circle"></i></a>
+                            <a class="art" href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">@song.SongName</a>
+                        </div>
+                    }
+                }
+
+                <div class="clearfix"> </div>
+
+                <ul class="pagination pull-left">
+
+                    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                    {
+                        <li class="@(i == Model.ActivePage?"active":"")">
+                            <a href="@Url.Action("Index","Song",new { PageId = i})" style="cursor: pointer">
+                                @i
+                                @if (i == Model.ActivePage)
+                                {
+                                    <span class="sr-only">(current)</span>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <!--//discover-view-->
+        <!--//music-left-->
+    </div>
+</div>
+
+

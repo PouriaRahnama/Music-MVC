@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="page-wrapper">
+    <div class="inner-content">
+        <div class="music-left">
+            @Html.Action("SiteSlider", "Home")
+
+            @Html.Action("LatestSongsHeader", "Home")
+
+            @Html.Action("Favorites", "Home")
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+@section FooterSlider
+{
+    @Html.Action("FooterSlider", "Home",new { area = ""})
+}

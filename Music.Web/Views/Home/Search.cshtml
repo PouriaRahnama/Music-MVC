@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Music.Data.Song>
+@using Music.Web.Utilities.ImageTools
+@using Music.Web.Utilities.Tools
+@{
+    ViewBag.Title = "Search";
+}
+<div id="page-wrapper">
+    <div class="inner-content">
+        <div class="music-browse">
+            <div class="albums fourth">
+                <div class="clearfix"></div>
+                @if (Model != null)
+                {
+                    foreach (var song in Model)
+                    {
+                        <div class="col-md-3 artist-grid">
+                            <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id, songName = song.SongName.FixedForUrl()})"><img src="@(ImagePath.SongOriginalPath + song.SongImageName)" title="allbum-name" width="257" height="257"></a>
+                            <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})"><i class="glyphicon glyphicon-play-circle"></i></a>
+                            <a class="art" href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">@song.SongName</a>
+                        </div>
+                    }
+                }
+
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>

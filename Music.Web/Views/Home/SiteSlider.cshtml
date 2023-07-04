@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Music.Data.Slider>
+
+@using Music.Web.Utilities.ImageTools
+<div class="banner-section">
+    <div class="banner">
+        <div class="callbacks_container">
+            <ul class="rslides callbacks callbacks1" id="slider4">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <div class="banner-img"><img src="@(ImagePath.SliderOriginalPath+item.ImageName)" style="height:610px" class="img-responsive" alt="" /></div>
+
+                        <div class="banner-info">
+                            <h3>@item.Title </h3>
+
+                            <p>
+                                @item.Description
+                            </p>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>

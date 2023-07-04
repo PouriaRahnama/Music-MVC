@@ -1,0 +1,16 @@
+﻿@model Music.Data.User
+@using System.Configuration
+
+
+<h2>
+    @Model.UserName عزیز!
+</h2>
+<p>
+
+    کلیک کنید !
+</p>
+
+<p>
+
+    <a href="@ConfigurationManager.AppSettings["MyDomain"]/activate/@Model.ActiveCode">لینک</a>
+</p>

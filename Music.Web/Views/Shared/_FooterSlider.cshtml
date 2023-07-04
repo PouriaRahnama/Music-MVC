@@ -1,0 +1,29 @@
+﻿@using Music.Web.Utilities.ImageTools
+@using Music.Web.Utilities.Tools
+@model IEnumerable<Music.Data.Song>
+
+<div class="review-slider">
+    <div class="tittle-head tittle-head-1">
+        <h3 class="tittle"><span class="new">پر بازدیدترین ها</span></h3>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <ul id="flexiselDemo1">
+        @foreach (var song in Model)
+        {
+            <li>
+                <a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})"> <img height="240" src="@(ImagePath.SongOriginalPath + song.SongImageName)" alt="@song.SongName" /> </a>
+
+                <div class="slide-title"><h4>@song.SongName</h4></div>
+
+                <div class="date-city">
+                    <h5>@song.Singer.SingerName</h5>
+
+                    <div class="buy-tickets"><a href="@Url.RouteUrl("SingleSong",new {songId = song.Id , songName = song.SongName.FixedForUrl()})">ادامه مطالب</a></div>
+                </div>
+            </li>
+        }
+
+    </ul>
+</div>

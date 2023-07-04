@@ -1,0 +1,63 @@
+﻿@using Music.Web.Utilities.ImageTools
+@model Music.Data.Singer
+
+@{
+    ViewBag.Title = "ویرایش خواننده";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget flat radius-bordered">
+        <div class="widget-header bg-yellow">
+            <span class="widget-caption">فرم ویرایش خواننده</span>
+        </div>
+        <div class="widget-body">
+            <div id="registration-form">
+                @using (Html.BeginForm("Edit", "Singer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(s => s.Id)
+                    @Html.HiddenFor(s => s.IsDelete)
+                    @Html.HiddenFor(s => s.SingerImage)
+                    <div class="form-title">
+                        ویرایش خواننده
+                    </div>
+
+
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            @Html.EditorFor(model => model.SingerName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = Html.DisplayNameFor(model => model.SingerName) } })
+                            @Html.ValidationMessageFor(model => model.SingerName, "", new { @class = "text-danger" })
+                        </span>
+                    </div>
+                    <div class="img-responsive">
+                        <img width="100" height="100" src="@(ImagePath.SingerThumbPath+Model.SingerImage)" />
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <span class="input-icon icon-right">
+                            <input type="file" value="image..." name="singerImage">
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" value="true" name="@nameof(Model.IsActive)" @(Model.IsActive ? "checked" : "")>
+                                <span class="text">@Html.DisplayNameFor(model => model.IsActive)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning">ویرایش</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

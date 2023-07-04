@@ -1,0 +1,52 @@
+﻿
+<div class="header-section">
+    <div class="menu-right">
+        <div class="profile_details">
+            <div class="col-md-2 login-pop">
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="loginpop">
+                        <a href="/Admin/Home/Index"> <span>پنل مدیریت سایت  </span> </a>
+                    </div>
+                }
+                @if (!User.Identity.IsAuthenticated)
+                {
+
+                    <div class="loginpop">
+                        <a href="@Url.RouteUrl("GetRegister") "> <span>  ثبت نام</span> </a>
+                    </div>
+                    <div class="loginpop">
+                        <a href="@Url.RouteUrl("GetLogin") "> <span> ورود</span> </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="loginpop">
+                        <a> <span>@User.Identity.Name  welcome </span> </a>
+                    </div>
+                    <div class="loginpop">
+                        <a href="@Url.RouteUrl("SignOut") "> <span> خروج</span> </a>
+                    </div>
+                }
+
+                <div class="loginpop">
+                    <a href="@Url.Action("Index","Home")"><span>خانه</span></a>
+                </div>
+
+                <div class="loginpop">
+                    <a href="@Url.Action("Index","Song")"><span>آهنگ ها</span></a>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <form action="/Home/Search" method="get">
+                    <input type="text" placeholder="جستجو کنید ..." name="search" dir="rtl">
+                </form>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
